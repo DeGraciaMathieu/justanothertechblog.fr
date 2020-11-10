@@ -56,7 +56,7 @@ defaults:
       comments: "true"
 
 # Serving
-url: "justanothertechblog.fr"
+url: "https://justanothertechblog.fr"
 baseurl: "/"
 
 # Includes
