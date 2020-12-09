@@ -1,9 +1,9 @@
 # General Settings
-name: Steve Austin
-job_title: UI/UX Engineer
+name: De Gracia Mathieu
+job_title: Lead Developer
 email: youremail@gmail.com
 description: I build great products at Google, currently Google Maps. I also enjoy capturing moments with my camera and discovering new music. Follow me Twitter or drop me a line.
-avatar: https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg
+avatar: https://avatars2.githubusercontent.com/u/11473997?s=460&u=52f80e74dccdfc1a723f609c2d1fc81bba6251ae&v=4
 favicon: /favicon.ico
 twitter_handler: your_handler
 analytics_code: UA-XXXXXXX-2
@@ -11,31 +11,10 @@ disqus: your_disqus_site
 
 # Social Accounts
 social_networks:
--  { name: facebook, url: 'http://facebook.com' }
--  { name: twitter, url: 'http://twitter.com' }
--  { name: instagram, url: '' }
--  { name: google-plus, url: '' }
--  { name: linkedin, url: '' }
--  { name: skype, url: '' }
--  { name: github, url: '' }
--  { name: codepen, url: '' }
--  { name: stack-overflow, url: '' }
--  { name: dribbble, url: '' }
--  { name: behance, url: '' }
--  { name: pinterest, url: '' }
--  { name: tumblr, url: '' }
--  { name: youtube, url: '' }
--  { name: vimeo, url: '' }
--  { name: vine, url: '' }
--  { name: 500px, url: '' }
--  { name: flickr, url: '' }
--  { name: spotify, url: '' }
--  { name: steam, url: '' }
--  { name: wordpress, url: '' }
--  { name: xing, url: '' }
--  { name: bitcoin, url: '' }
--  { name: pocket, url: '' }
--  { name: applemusic, url: '' }
+-  { name: twitter, url: 'http://twitter.com/degraciamathieu' }
+-  { name: linkedin, url: 'https://www.linkedin.com/in/mathieu-de-gracia' }
+-  { name: github, url: 'https://github.com/DeGraciaMathieu' }
+
 
 # Modules Settings
 show_categories: 1
@@ -57,7 +36,7 @@ defaults:
 
 # Serving
 url: "https://justanothertechblog.fr"
-baseurl: "/"
+baseurl: ""
 
 # Includes
 include: ["_pages"]
