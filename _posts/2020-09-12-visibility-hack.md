@@ -33,13 +33,16 @@ class Foo {
 L'idée est d'utiliser le `Closure::call` introduit [en php7](https://www.php.net/manual/fr/closure.call.php) pour **injecter une closure dans le scope d'une instance** de la class <code>Foo</code>.
 
 {% highlight php linenos %}
+$foo = new Foo();
+
 $closure = function () {
     $this->bar = false;
     $this->bar();
 };
 
-$foo = new Foo();
 $closure->call($foo);
 {% endhighlight %}
 
 Une fois notre closure injecté, il lui est désormais possible d'acceder à toutes les proprietés et méthodes protected de notre class.
+
+Certes, c'est pas usuel, mais vous êtes majeur et vacciné. 

@@ -2,7 +2,7 @@
 name: De Gracia Mathieu
 job_title: Lead Developer
 email: youremail@gmail.com
-description: I build great products at Google, currently Google Maps. I also enjoy capturing moments with my camera and discovering new music. Follow me Twitter or drop me a line.
+description: Lead developer Laravel at Focus Home Interactive. J'accorde de l'importance à la notion de qualité, comment la définir, la propager au sein d'une équipe.
 avatar: https://avatars2.githubusercontent.com/u/11473997?s=460&u=52f80e74dccdfc1a723f609c2d1fc81bba6251ae&v=4
 favicon: /favicon.ico
 twitter_handler: your_handler
@@ -15,13 +15,12 @@ social_networks:
 -  { name: linkedin, url: 'https://www.linkedin.com/in/mathieu-de-gracia' }
 -  { name: github, url: 'https://github.com/DeGraciaMathieu' }
 
-
 # Modules Settings
 show_categories: 1
 show_tags: 1
 show_email: 1
 show_rss: 1
-show_comments: 1
+show_comments: 0
 show_menu: 1
 fixed_sidebar: 1
 
@@ -57,4 +56,3 @@ excerpt_separator: <!--more-->
 sass:
   sass_dir: assets/partials
   style: compressed
-
