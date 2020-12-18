@@ -24,7 +24,9 @@ L'utilisation de la [reflection](https://www.php.net/manual/fr/reflectionpropert
 Considérons la class suivante :
 
 {% highlight php linenos %}
-class Foo {}
+class Foo {
+    
+}
 {% endhighlight %}
 
 L'idée est d'utiliser le `Closure::call` introduit [en php7](https://www.php.net/manual/fr/closure.call.php) pour **injecter une closure dans le scope d'une instance** de la class <code>Foo</code>.
