@@ -26,9 +26,7 @@ Considérons la class suivante :
 {% highlight php linenos %}
 class Foo {
     protected $bar;
-    protected function qsdqs()
-    {
-    }
+    protected function bar() {}
 }
 {% endhighlight %}
 
