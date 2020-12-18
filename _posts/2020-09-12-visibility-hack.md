@@ -25,7 +25,11 @@ Considérons la class suivante :
 
 {% highlight php linenos %}
 class Foo {
-    
+    protected $bar;
+    protected bar() 
+    {
+        //
+    }
 }
 {% endhighlight %}
 
