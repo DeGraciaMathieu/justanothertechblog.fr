@@ -28,7 +28,7 @@ class Foo {
     protected $bar;
     protected function qsdqs()
     {
-        
+        \/\/
     }
 }
 {% endhighlight %}
