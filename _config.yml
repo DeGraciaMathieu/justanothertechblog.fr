@@ -1,6 +1,6 @@
 # General Settings
 name: De Gracia Mathieu
-job_title: Lead Developer
+job_title: Lead Developer Laravel
 email: youremail@gmail.com
 description: Lead developer Laravel at Focus Home Interactive. J'accorde de l'importance à la notion de qualité, comment la définir, la propager au sein d'une équipe.
 avatar: https://avatars2.githubusercontent.com/u/11473997?s=460&u=52f80e74dccdfc1a723f609c2d1fc81bba6251ae&v=4
@@ -18,7 +18,7 @@ social_networks:
 # Modules Settings
 show_categories: 1
 show_tags: 1
-show_email: 1
+show_email: 0
 show_rss: 1
 show_comments: 0
 show_menu: 1
