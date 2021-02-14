@@ -30,7 +30,7 @@ public function definition()
 }
 {% endhighlight %}
 
-Comment est-ce possible que le hash de password soit hardcodé dans notre `UserFactory` alors que la valeur d'environnement `APP_TOKEN` de l'application n'est pas encore définie ?
+Comment est-ce possible que le hash du champ password soit hardcodé dans notre `UserFactory` alors que la valeur d'environnement `APP_TOKEN` de l'application n'est pas encore définie ?
 
 J'ai toujours bêtement consideré que `APP_TOKEN` était utilisé comme salt pour tous les hash, pour autant, lors d'une nouvelle installation de Laravel la valeur de `APP_TOKEN`... est <code>null</code>.
 
@@ -48,11 +48,11 @@ Cet hash de password est hardcodé pour des questions d'optimisation, un `passwo
 
 ## Exploration 
 
-Premières constatations, il n'y a rien de natif dans Laravel pour hash automatiquement la valeur d'un password lors de l'insertion d'un utilisateur.
+Premières constatations, il n'y a rien de natif dans Laravel pour hash automatiquement l'attribut password d'un model `User` lors de son insertion.
 
 C’est aux développeurs de gérer ce besoin… et la documentation n’est pas forcément très loquace sur la marche à suivre.
 
-Seule véritable information, on apprend que la méthode `Auth::attempt()`, permettant d'authentifier un utilisateur, procedera à un hash du password pour le comparer avec celui présent en base de données.
+Seule véritable information, on apprend que la méthode `Auth::attempt()`, permettant d'authentifier un utilisateur, procedera à un hash du password submit pour le comparer avec celui présent en base de données.
 
 > The attempt method accepts an array of key / value pairs as its first argument. The values in the array will be used to find the user in your database table. If the user is found, **the hashed password stored in the database will be compared with the password value passed** to the method via the array. 
 
@@ -79,7 +79,7 @@ Ce choix est configurable dans le fichier `config\auth.php`.
     ],
 {% endhighlight %}
 
-Lors d'une tentative d'authentification, apres avoir récupéré l'utilisateur à l'aide de la méthode `retrieveByCredentials` du `EloquentUserProvider`, c'est au rôle de la méthode `validateCredentials` de vérifier la pertinence du password à l'aide d'un objet `hasher`.  
+Lors d'une tentative d'authentification, apres avoir récupéré l'utilisateur depuis la méthode `retrieveByCredentials` du `EloquentUserProvider`, c'est au rôle de la méthode `validateCredentials` de vérifier la concordance du password à l'aide d'un objet `hasher`.  
 
 {% highlight php linenos %}
 public function validateCredentials(UserContract $user, array $credentials)
@@ -117,9 +117,9 @@ Alors à quoi sert `APP_TOKEN` ?
 
 ## Hasher n'est pas crypter
 
-Le `APP_TOKEN` est finalement utilisé en tant que salt pour crypter des informations depuis la class [Crypt](https://laravel.com/docs/8.x/encryption).
+Le `APP_TOKEN` est uniquement utilisé en tant que salt pour crypter des informations depuis la class [Crypt](https://laravel.com/docs/8.x/encryption).
 
-Les passwords des utilisateurs sont quant à eux hashé à l'aide d'un algorithme que vous pouvez configuer dans `Config\hashing.php` :
+Les passwords des utilisateurs sont quant à eux hashé à l'aide d'un algorithme que vous pouvez configuer dans `Config\hashing.php`.
 
 C'est pour cette raison que `UserFactory` contient un hash hardcodé, `$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi` correspondra toujours à la valeur `password`.
 
