@@ -30,7 +30,7 @@ public function definition()
 }
 {% endhighlight %}
 
-Comment est-ce possible que le hash de password soit hardcodé dans notre `UserFactory` alors que la valeur de `APP_TOKEN` de l'application n'est pas encore définie ?
+Comment est-ce possible que le hash de password soit hardcodé dans notre `UserFactory` alors que la valeur d'environnement `APP_TOKEN` de l'application n'est pas encore définie ?
 
 J'ai toujours bêtement consideré que `APP_TOKEN` était utilisé comme salt pour tous les hash, pour autant, lors d'une nouvelle installation de Laravel la valeur de `APP_TOKEN`... est <code>null</code>.
 
