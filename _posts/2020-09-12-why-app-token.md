@@ -2,7 +2,7 @@
 layout: post
 date: 2021-02-14 12:36
 title: "Pourquoi le hash de password est hardcodé dans UserFactory ?"
-description: Pourquoi le hash de password est hardcodé dans UserFactory ?
+description: à quoi sert le token de l'application lors d'un hash ?
 comments: false
 category: 
 - laravel
