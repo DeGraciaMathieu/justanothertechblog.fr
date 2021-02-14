@@ -42,7 +42,7 @@ Creusons dans le code pour comprendre le fin mot de l'histoire.
 
 Le `APP_TOKEN` est uniquement utilisé pour [l'encryption](https://laravel.com/docs/8.x/encryption).
 
-Un password en base de données est quant à lui hashé par un [password_hash](https://www.php.net/manual/fr/function.password-hash.php) avec par défaut un `bcrypt`.
+Un password en base de données est quant à lui hashé par un [password_hash](https://www.php.net/manual/fr/function.password-hash.php) avec `bcrypt` comme algorithme par défaut.
 
 Cet hash de password est hardcodé pour des questions d'optimisation, un `password_hash` étant fortement demandeur en ressources.
 
