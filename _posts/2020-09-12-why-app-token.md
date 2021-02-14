@@ -30,7 +30,7 @@ public function definition()
 }
 {% endhighlight %}
 
-Comment est-ce possible que le hash de password soit présent en dur dans notre `UserFactory` alors que la valeur de `APP_TOKEN` de l'application n'est pas encore définie ?
+Comment est-ce possible que le hash de password soit hardcodé dans notre `UserFactory` alors que la valeur de `APP_TOKEN` de l'application n'est pas encore définie ?
 
 J'ai toujours bêtement consideré que `APP_TOKEN` était utilisé comme salt pour tous les hash, pour autant, lors d'une nouvelle installation de Laravel la valeur de `APP_TOKEN`... est <code>null</code>.
 
@@ -119,6 +119,6 @@ Le `APP_TOKEN` est finalement utilisé en tant que salt pour crypter des informa
 
 Les passwords des utilisateurs sont quant à eux hashé à l'aide d'un algorithme que vous pouvez configuer dans `Config\hashing.php` :
 
-C'est pour cette raison que `UserFactory` contient un hash en dur, `$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi` correspondra toujours à la valeur `password`.
+C'est pour cette raison que `UserFactory` contient un hash hardcodé, `$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi` correspondra toujours à la valeur `password`.
 
 Bisous, bonne journée.
