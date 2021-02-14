@@ -15,7 +15,7 @@ tags:
     <img src="https://images.unsplash.com/photo-1592483335937-a3213ac4a833?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=3900&q=80" />
 </figure>
 
-Lors d'une soirée live coding sur la chaine twitch de [DevMaker_tv](https://www.twitch.tv/devmaker_tv) nous nous sommes intéressés à une subtilité de Laravel présente dans le fichier `UserFactory`.
+Lors d'une soirée live coding sur la chaine twitch [DevMaker_tv](https://www.twitch.tv/devmaker_tv) nous nous sommes intéressés à une subtilité de Laravel présente dans le fichier `UserFactory`.
 
 {% highlight php linenos %}
 public function definition()
@@ -30,11 +30,11 @@ public function definition()
 }
 {% endhighlight %}
 
-Comment est-ce possible que cet hash de password soit présent en dur dans notre `UserFactory` alors que la valeur de `APP_TOKEN` de l'application n'est pas encore définie ?
+Comment est-ce possible que le hash de password soit présent en dur dans notre `UserFactory` alors que la valeur de `APP_TOKEN` de l'application n'est pas encore définie ?
 
-J'ai toujours bêtement consideré que `APP_TOKEN` était utilisé comme salt pour tous les hash, pour autant lors d'une nouvelle installation de Laravel la valeur de `APP_TOKEN`... est null.
+J'ai toujours bêtement consideré que `APP_TOKEN` était utilisé comme salt pour tous les hash, pour autant, lors d'une nouvelle installation de Laravel la valeur de `APP_TOKEN`... est <code>null</code>.
 
-Creusons dans le code pour déterminer le fin mot de l'histoire.
+Creusons dans le code pour comprendre le fin mot de l'histoire.
 
 ## TLDR
 
@@ -42,7 +42,7 @@ Le `APP_TOKEN` est uniquement utilisé pour [l'encryption](https://laravel.com/d
 
 Un password en base de données est quant à lui hashé par un [password_hash](https://www.php.net/manual/fr/function.password-hash.php) avec par défaut un `bcrypt`.
 
-Cet hash de password est présent en dur pour des soucis d'optimisation, un `password_hash` étant fortement demandeur en ressources.
+Cet hash de password est hardcodé pour des questions d'optimisation, un `password_hash` étant fortement demandeur en ressources.
 
 ## Exploration 
 
@@ -54,7 +54,7 @@ Seule véritable information, on apprend que la méthode `Auth::attempt()`, perm
 
 > The attempt method accepts an array of key / value pairs as its first argument. The values in the array will be used to find the user in your database table. If the user is found, **the hashed password stored in the database will be compared with the password value passed** to the method via the array. 
 
-Pour comprendre ce qui se passe, nous allons retracer le code utilisé lors d'une tentative d'authentification pour déterminer comment Laravel hash un password.
+Pour comprendre ce qui se passe, nous allons retracer le code utilisé lors d'une tentative d'authentification pour comprendre comment Laravel hash un password.
 
 ## Comprendre l'authentification
 
@@ -121,4 +121,4 @@ Les passwords des utilisateurs sont quant à eux hashé à l'aide d'un algorithm
 
 C'est pour cette raison que `UserFactory` contient un hash en dur, `$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi` correspondra toujours à la valeur `password`.
 
-Bonne journée.
+Bisous, bonne journée.
