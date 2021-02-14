@@ -38,7 +38,7 @@ Et puis entre nous, un salt statique commun à toutes les nouvelles applications
 
 Creusons dans le code pour comprendre le fin mot de l'histoire.
 
-## TLDR
+## TL;DR
 
 Le `APP_TOKEN` est uniquement utilisé pour [l'encryption](https://laravel.com/docs/8.x/encryption).
 
