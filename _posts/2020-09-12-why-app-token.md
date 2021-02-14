@@ -34,6 +34,8 @@ Comment est-ce possible que le hash de password soit hardcodé dans notre `UserF
 
 J'ai toujours bêtement consideré que `APP_TOKEN` était utilisé comme salt pour tous les hash, pour autant, lors d'une nouvelle installation de Laravel la valeur de `APP_TOKEN`... est <code>null</code>.
 
+Et puis entre nous, un salt statique commun à toutes les nouvelles applications... C'est sacrement naze comme idée.
+
 Creusons dans le code pour comprendre le fin mot de l'histoire.
 
 ## TLDR
