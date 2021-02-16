@@ -1,8 +1,8 @@
 ---
 layout: post
 date: 2021-02-14 12:36
-title: "Pourquoi le hash de password est hardcodé dans UserFactory ?"
-description: à quoi sert le token de l'application lors d'un hash ?
+title: "Pourquoi trouve-t-on un hash hardcodé dans UserFactory ?"
+description: Le UserFactory de Laravel contient un hash hardcodé, comment est-ce possible alors que la key de l'application n'est pas encore définie ?
 comments: false
 category: 
 - laravel
@@ -30,9 +30,9 @@ public function definition()
 }
 {% endhighlight %}
 
-Comment est-ce possible que le hash du champ password soit hardcodé dans notre `UserFactory` alors que la valeur d'environnement `APP_TOKEN` de l'application n'est pas encore définie ?
+Comment est-ce possible que le hash du champ password soit hardcodé dans notre `UserFactory` alors que la valeur d'environnement `APP_KEY` de l'application n'est pas encore définie ?
 
-J'ai toujours bêtement consideré que `APP_TOKEN` était utilisé comme salt pour tous les hash, pour autant, lors d'une nouvelle installation de Laravel la valeur de `APP_TOKEN`... est <code>null</code>.
+J'ai toujours bêtement consideré que `APP_KEY` était utilisé comme salt pour tous les hash, pour autant, lors d'une nouvelle installation de Laravel la valeur de `APP_KEY`... est <code>null</code>.
 
 Et puis entre nous, un salt statique commun à toutes les nouvelles applications... C'est sacrement naze comme idée.
 
@@ -40,7 +40,7 @@ Creusons dans le code pour comprendre le fin mot de l'histoire.
 
 ## TL;DR
 
-Le `APP_TOKEN` est uniquement utilisé pour [l'encryption](https://laravel.com/docs/8.x/encryption).
+Le `APP_KEY` est uniquement utilisé pour [l'encryption](https://laravel.com/docs/8.x/encryption).
 
 Un password en base de données est quant à lui hashé par un [password_hash](https://www.php.net/manual/fr/function.password-hash.php) avec `bcrypt` comme algorithme par défaut.
 
@@ -52,11 +52,11 @@ Premières constatations, il n'y a rien de natif dans Laravel pour hash automati
 
 C’est aux développeurs de gérer ce besoin… et la documentation n’est pas forcément très loquace sur la marche à suivre.
 
-Seule véritable information, on apprend que la méthode `Auth::attempt()`, permettant d'authentifier un utilisateur, procedera à un hash du password submit pour le comparer avec celui présent en base de données.
+On apprend depuis la documentation que la méthode `Auth::attempt()`, permettant d'authentifier un utilisateur, procedera à un hash du password submit pour le comparer avec celui présent en base de données.
 
 > The attempt method accepts an array of key / value pairs as its first argument. The values in the array will be used to find the user in your database table. If the user is found, **the hashed password stored in the database will be compared with the password value passed** to the method via the array. 
 
-Pour comprendre ce qui se passe, nous allons retracer le code utilisé lors d'une tentative d'authentification pour comprendre comment Laravel hash un password.
+Pour comprendre ce qui se passe, nous allons retracer le code utilisé lors d'une tentative d'authentification pour déterminer comment Laravel hash un password.
 
 ## Comprendre l'authentification
 
@@ -96,7 +96,7 @@ C'est ce `BcryptHasher` qui aura la charge de vérifier le pertinence du passwor
 
 ## Le check du password
 
-Nous y sommes, voici comment Laravel hash un password lors d'une authentification. 
+Nous y sommes, voici comment Laravel hash un password lors d'une tentative d'authentification. 
 
 {% highlight php linenos %}
 public function check($value, $hashedValue, array $options = [])
@@ -109,17 +109,17 @@ public function check($value, $hashedValue, array $options = [])
 }
 {% endhighlight %}
 
-On s'aperçoit que Laravel utilise une fonction [password_verify](https://www.php.net/manual/fr/function.password-verify.php) native à php... et aucune présence du `APP_TOKEN` en tant que salt. 
+Le framework utilise une fonction [password_verify](https://www.php.net/manual/fr/function.password-verify.php) native à php... et notre `APP_KEY` n'intervient à aucun moment en tant que salt. 
 
-On peut donc affirmer que la valeur du `APP_TOKEN` n'impacte pas le hash des passwords.
+On peut donc affirmer que la valeur du `APP_KEY` n'impacte pas le hash des passwords.
 
-Alors à quoi sert `APP_TOKEN` ?
+Alors à quoi il sert ?
 
 ## Hasher n'est pas crypter
 
-Le `APP_TOKEN` est uniquement utilisé en tant que salt pour crypter des informations depuis la class [Crypt](https://laravel.com/docs/8.x/encryption).
+Le `APP_KEY` est uniquement utilisé en tant que salt pour crypter des informations depuis la class [Crypt](https://laravel.com/docs/8.x/encryption).
 
-Les passwords des utilisateurs sont quant à eux hashé à l'aide d'un algorithme que vous pouvez configuer dans `Config\hashing.php`.
+Les passwords des utilisateurs sont quant à eux hashé à l'aide d'un algorithme que vous pouvez configuer dans `config\hashing.php`.
 
 C'est pour cette raison que `UserFactory` contient un hash hardcodé, `$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi` correspondra toujours à la valeur `password`.
 
